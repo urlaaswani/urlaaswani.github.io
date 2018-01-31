@@ -1,0 +1,6 @@
+.Info{
+  text-align:center;
+  background-color:orange;
+  font-size:28px;
+  font-weight:bold;
+  }

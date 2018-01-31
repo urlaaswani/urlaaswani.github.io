@@ -1,0 +1,58 @@
+import { Component, OnInit } from '@angular/core';
+import {WeatherService} from '../services/weather.service';
+import { trigger,state,style,transition,animate,keyframes} from '@angular/animations';
+@Component({
+  selector: 'app-home', 
+ templateUrl: './home.component.html', 
+styleUrls: ['./home.component.css'],
+ animations:[
+ trigger('myAnimation',[
+   state('small',style({
+     transform:'scale(1)',
+   })),
+  state('large',style({
+    transform:'scale(1.2)',
+  })), 
+ transition('small <=> large',animate('300ms ease-in')),
+ ]),
+  ]
+})
+
+export class HomeComponent implements OnInit {
+
+  location = {
+    city:  'london',
+    code : 'uk'
+  };
+weather:any;
+ value:any; 
+state:string = 'small';
+ constructor(private _weatherService: WeatherService) {
+  }
+ngOnInit() {    
+ this.value = localStorage.getItem('location');
+
+     
+ if (this.value!=null){
+        
+  this.location=JSON.parse(this.value);     
+}
+else {  
+   this.location={
+          city:'london',
+          code:'uk'
+        }    
+ }   
+this._weatherService.getWeather(this.location.city, this.location.code).subscribe(
+      response => {
+        console.log(response);
+      
+  this.weather=response;
+      }
+    );
+  }
+animate(){
+  this.state = (this.state === 'small'? 'large':'small');
+}
+
+}

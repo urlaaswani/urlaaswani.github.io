@@ -1,0 +1,9 @@
+<div class="Info">
+<ul class="nav nav-tabs">
+  <li><a [routerLink]="['/setting']">Home</a></li>
+  <li><a [routerLink]="['/home']">Details</a></li>
+</ul>
+</div>
+<div>
+  <router-outlet></router-outlet>
+</div>
